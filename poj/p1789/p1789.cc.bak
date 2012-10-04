@@ -1,0 +1,83 @@
+#include<iostream>
+#include<vector>
+#include<string>
+using namespace std;
+const int INFINIT_D = 10; 
+class Pair{
+	public:
+		 int d;
+	   	 int node;
+};
+class Edge{
+	public:
+		 int t;
+		 int d;
+};
+class Node{
+	vector<Edge> edges;
+};
+class Graph{
+	public:
+		vector<Node> nodes;
+};
+Pair heap[2001];	
+void heap_minify(Pair heap[],int size,int i){
+	int left = i*2+1;	
+	int right = i*2+2;
+	int min = i;
+	if(left < size&&heap[left].d>heap[min].d){
+		min = left;
+	}
+	if(right < size&&heap[right].d>heap[min].d){
+		min = right;
+	}
+	if(min != i){
+		Pair temp;
+		temp = heap[i].d;
+		heap[i].d = heap[min].d;
+		heap[i].d = temp;
+		heap_minify(heap,size,min);
+	}	
+}
+
+void buildHeap(Pair heap[],int size){
+	for(int i= (size-1)/2;i>=0;i--){
+		heap_minify(heap,size,i);
+	}
+}
+
+int computeD(const string& s1,const string& s2){
+	int d = 0;
+	for(int i=0;i<s1.size();i++){
+		if(s1[i] != s2[i]){
+			d++;
+		}
+	}
+	return d;
+}
+Graph g;
+int main(){
+		int count=0;	
+		vector<string> v_s;
+		while((cin>>count&&count!=0)){
+			for(int i=0;i<count;i++){
+				string s;
+				cin>>s;
+				v_s.push_back(s);	
+				Node node;
+				g.nodes.push_back(node);
+			}
+			for(int i=0;i<v_s.size();i++){
+				for(int j=i+1;k>v_s.size();j++){
+					int d = computeD(v_s[i],v_s[j]);
+					Edge edge;
+					edge.t = j;
+					edge.d = d;
+					g.nodes[i].push_back(edge);
+					edge.t = i;
+					g.nodes[j].push_back(edge);
+				}
+			}
+			
+		}
+}

@@ -1,0 +1,32 @@
+2
+
+150 RMB
+2 
+Neptune 1
+1 days 100 RMB
+Earth 1
+1 days 60 RMB
+90
+80
+
+1153 RMB
+3
+Mars 2 
+2 days 155 RMB 
+3 days 170 RMB
+Jupiter 2 
+4 days 180 RMB
+5 days 220 RMB
+Pluto 4 
+1 days 230 RMB
+2 days 250 RMB
+3 days 270 RMB
+4 days 380 RMB
+30
+70
+75
+65
+110
+100
+90
+120
