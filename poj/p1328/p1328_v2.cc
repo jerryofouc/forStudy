@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<math.h>
+using namespace std;
+int x[1000];
+int y[1000];
+double start[1000];
+double end[1000];
+int include[1000];
+void print(double x[],double y[],int n);
+int partition(double x[],double y[],int start,int end){
+	int i=start,j=start-1;
+	for(;i<end;i++){
+		if(x[i]<x[end]){
+			double temp = x[++j];
+			x[j] = x[i];
+			x[i] = temp;
+			temp = y[j];
+			y[j] = y[i];
+			y[i] = temp;
+		}
+	}
+	double temp = x[++j];
+	x[j] = x[end];
+	x[end] = temp;
+	temp = y[j];
+	y[j] = y[end];
+	y[end] = temp;
+	return j;
+}
+void quickSort(double x[],double y[],int start,int end){
+	if(start<end){
+		int index = partition(x,y,start,end);	
+		quickSort(x,y,start,index-1);
+		quickSort(x,y,index+1,end);
+	}
+}
+bool isPreValid(int y[],int n,int d){
+	for(int i = 0;i<n;i++){
+		if(y[i]>d){
+			return false;
+		}
+	}
+	return true;
+}
+int main(){
+	int n,d,cn = 1,result = 1;	
+	scanf("%d",&n);
+	scanf("%d",&d);
+	while(d!=0||n!=0){
+		for(int i=0;i<n;i++){
+			include[i] = 0;
+			scanf("%d",&x[i]);	
+			scanf("%d",&y[i]);	
+		}
+		if(!isPreValid(y,n,d)){
+			printf("Case %d: -1\n",cn);
+			cn++;
+		}else{
+			for(int i=0;i<n;i++){
+				start[i] = x[i]	- sqrt(d*d-y[i]*y[i]);
+				end[i] = x[i]	+sqrt(d*d-y[i]*y[i]);
+			}
+			quickSort(start,end,0,n-1);
+			int num = 0;
+			for(int i=0;i<n;){
+				num++;
+				int j;
+				double endll = end[i];
+				for(j=i+1;j<n;){
+					if(start[j]<endll+0.000001){
+						if(end[j]<endll){
+							endll = end[j];
+						}
+						j++;
+					}else{
+						break;
+					}
+				}
+				i=j;
+			}
+			printf("Case %d: %d\n",cn,num);
+			cn++;
+		}
+		scanf("%d",&n);
+		scanf("%d",&d);
+	}
+}
