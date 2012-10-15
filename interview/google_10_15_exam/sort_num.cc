@@ -1,0 +1,51 @@
+#include<iostream>
+using namespace std;
+void print(int a[],int n){
+	for(int i=0;i<n;i++){
+		cout << a[i]<<" ";
+	}
+	cout <<endl;
+}
+void swap(int a[],int i,int j){
+	int temp = a[i];
+	a[i] = a[j];
+	a[j] = temp;
+}
+int findIndex(int a[],int n,int index){
+	for(int i=0;i<n;i++){
+		if(a[i] == index){
+			return i;
+		}
+	}
+	return -1;
+}
+int findFirstNotOK(int a[],int n){
+	for(int i = 1;i<n;i++){
+		if(a[i] != i){
+			return i;
+		}
+	}
+	return -1;
+}
+
+int sort_by_swap_zero(int a[],int n){
+	while(findFirstNotOK(a,n)!=-1){
+//		print(a,11);
+		int zeroIndex = findIndex(a,n,0);
+		if(zeroIndex==0){
+			zeroIndex = findFirstNotOK(a,n);	
+			swap(a,0,zeroIndex);
+			print(a,11);
+		}
+		int iindex = findIndex(a,n,zeroIndex);
+		swap(a,iindex,zeroIndex);
+//		print(a,11);
+	}	
+}
+
+int main(){
+	int a[] = {3,4,2,6,8,9,10,0,1,5,7};
+	print(a,11);
+	sort_by_swap_zero(a,11);
+	print(a,11);
+}
