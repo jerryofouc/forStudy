@@ -1,0 +1,8 @@
+#include<iostream>
+using namespace std;
+mutable int a = 1;
+int main(){
+	a = 2;
+	const int &ar = a; 
+	ar = 3;
+}
