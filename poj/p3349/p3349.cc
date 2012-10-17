@@ -1,26 +1,31 @@
 #include<iostream>
 using namespace std;
 const int MAX = 100003;
-int table[MAX]={-1};
+int table[MAX];
 int array[100000][6];
 bool equal(int a[6],int b[6]){
-	int buff[16];
 	for(int i=0;i<6;i++){
-		buff[i] = buff[i+6] = a[i];
-	}
-	for(int i=0;i<6;i++){
-		bool isEqual = true;;
-		for(int k=0;k<6;k++){
-			if(buff[i+k]!=b[k]){
-				isEqual = false;	
-				break;
-			}	
+		if(a[0] == b[i]){
+			int k=0;
+			for(k=0;k<6;k++){
+				if(a[k] != b[(k+i)%6]){
+					break;
+				}
+			}
+			if(k==6){
+				return true;
+			}
+			for(k=0;k<6;k++){
+				if(a[(6-k)%6] != b[(i-k+6)%6]){
+					break;
+				}
+			}
+			if(k==6){
+				return true;
+			}
 		}
-		if(isEqual){
-			return true;		
-		}
+		
 	}
-	return false;
 }
 int hashFun(int a[6]){
 	int sum =0;
@@ -69,6 +74,7 @@ int main(){
 			put(i);	
 		}else{
 			cout << "Twin snowflake found."<<endl;
+			return 0;
 		}
 	}
 	cout << "No two snowflakes are alike."<<endl;
