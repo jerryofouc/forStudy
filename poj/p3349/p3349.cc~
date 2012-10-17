@@ -1,0 +1,71 @@
+#include<iostream>
+using namespace std;
+const int MAX = 100003;
+int table[MAX]={-1};
+int array[100000][6];
+bool equal(int a[6],int b[6]){
+	int buff[16];
+	for(int i=0;i<6;i++){
+		buff[i] = buff[i+6] = a[i];
+	}
+	for(int i=0;i<6;i++){
+		bool isEqual = true;;
+		for(int k=0;k<6;k++){
+			if(buff[i+k]!=b[k]){
+				isEqual = false;	
+				break;
+			}	
+		}
+		if(isEqual){
+			return true;		
+		}
+	}
+	return false;
+}
+int hashFun(int a[6]){
+	int sum =0;
+	for(int i=0;i<6;i++){
+		sum+=a[i];
+	}
+	return sum%MAX;
+}
+void put(int k){
+	int h = hashFun(array[k]);
+	if(table[h] == -1){
+		table[h] = k;
+	}else{
+		int j = h+1;
+		while(table[j%MAX] != -1){
+			j++;
+		}
+		table[j] = k;
+	}
+}
+int get(int a[]){
+	int h = hashFun(a);
+	int index = table[h];
+	while(index!=-1){
+		if(equal(array[index],a)){
+			return index;
+		}
+		index = (index+1)%MAX;
+	}
+	return index;
+}
+int main(){
+	int N;
+	cin>>N;
+	for(int i=0;i<N;i++){
+		for(int j=0;j<6;j++){
+			cin>>array[i][j];
+		}
+	}
+	for(int i=0;i<N;i++){
+		if(get(array[i])==-1){
+			put(i);	
+		}else{
+			cout << "Twin snowflake found."<<endl;
+		}
+	}
+	cout << "No two snowflakes are alike."<<endl;
+}
