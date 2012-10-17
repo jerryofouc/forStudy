@@ -6,6 +6,7 @@ int array[100000][6];
 bool equal(int a[6],int b[6]){
 	for(int i=0;i<6;i++){
 		if(a[0] == b[i]){
+			//cout << "i::"<<i<<endl;
 			int k=0;
 			for(k=0;k<6;k++){
 				if(a[k] != b[(k+i)%6]){
@@ -16,7 +17,7 @@ bool equal(int a[6],int b[6]){
 				return true;
 			}
 			for(k=0;k<6;k++){
-				if(a[(6-k)%6] != b[(i-k+6)%6]){
+				if(a[k] != b[(i-k+6)%6]){
 					break;
 				}
 			}
@@ -24,8 +25,8 @@ bool equal(int a[6],int b[6]){
 				return true;
 			}
 		}
-		
 	}
+	return false;
 }
 int hashFun(int a[6]){
 	int sum =0;
@@ -50,15 +51,23 @@ int get(int a[]){
 	int h = hashFun(a);
 	//cout << "h:"<<h<<endl;
 	int index = table[h];
+	//cout << "index "<<index<<endl;
 	while(index!=-1){
 		if(equal(array[index],a)){
+			//cout << "equal"<<endl;
 			return index;
 		}
-		index = (index+1)%MAX;
+		h++;
+		index = table[h];
 	}
 	return index;
 }
 int main(){
+	int aa[] = {1,2,3,4,5,6};
+	int bb[] = {6,5,4,3,2,1};
+	if(equal(aa,bb)){
+		//cout << "ddd"<<endl;
+		}
 	for(int i =0;i<MAX;i++){
 		table[i] = -1;
 	}
@@ -72,8 +81,9 @@ int main(){
 	for(int i=0;i<N;i++){
 		if(get(array[i])==-1){
 			put(i);	
+			//cout <<"put: "<<i<<endl;
 		}else{
-			cout << "Twin snowflake found."<<endl;
+			cout << "Twin snowflakes found."<<endl;
 			return 0;
 		}
 	}
