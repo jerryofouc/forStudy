@@ -43,6 +43,7 @@ void put(int k){
 }
 int get(int a[]){
 	int h = hashFun(a);
+	//cout << "h:"<<h<<endl;
 	int index = table[h];
 	while(index!=-1){
 		if(equal(array[index],a)){
@@ -53,6 +54,9 @@ int get(int a[]){
 	return index;
 }
 int main(){
+	for(int i =0;i<MAX;i++){
+		table[i] = -1;
+	}
 	int N;
 	cin>>N;
 	for(int i=0;i<N;i++){
@@ -65,7 +69,6 @@ int main(){
 			put(i);	
 		}else{
 			cout << "Twin snowflake found."<<endl;
-			return 0;
 		}
 	}
 	cout << "No two snowflakes are alike."<<endl;
