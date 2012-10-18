@@ -6,7 +6,6 @@ int array[100000][6];
 bool equal(int a[6],int b[6]){
 	for(int i=0;i<6;i++){
 		if(a[0] == b[i]){
-			//cout << "i::"<<i<<endl;
 			int k=0;
 			for(k=0;k<6;k++){
 				if(a[k] != b[(k+i)%6]){
