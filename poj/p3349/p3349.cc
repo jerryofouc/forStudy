@@ -27,7 +27,7 @@ bool equal(int a[6],int b[6]){
 	}
 	return false;
 }
-int hashFun(int a[6]){
+int hashCode(int a[6]){
 	int sum =0;
 	for(int i=0;i<6;i++){
 		sum+=a[i];
@@ -35,38 +35,22 @@ int hashFun(int a[6]){
 	return sum%MAX;
 }
 void put(int k){
-	int h = hashFun(array[k]);
-	if(table[h] == -1){
-		table[h] = k;
-	}else{
-		int j = h+1;
-		while(table[j%MAX] != -1){
-			j++;
-		}
-		table[j] = k;
+	int h = hashCode(array[k]);
+	while(table[h]!=-1){
+		h = (h+1)/MAX;
 	}
+	table[h] = k;
 }
+//return -1 :not found
+//return index
 int get(int a[]){
-	int h = hashFun(a);
-	//cout << "h:"<<h<<endl;
-	int index = table[h];
-	//cout << "index "<<index<<endl;
-	while(index!=-1){
-		if(equal(array[index],a)){
-			//cout << "equal"<<endl;
-			return index;
-		}
+	int h = hashCode(a);
+	while(table[h]!=-1&&!equal(array[table[h]],a)){
 		h++;
-		index = table[h];
 	}
-	return index;
+	return table[h];
 }
 int main(){
-	int aa[] = {1,2,3,4,5,6};
-	int bb[] = {6,5,4,3,2,1};
-	if(equal(aa,bb)){
-		//cout << "ddd"<<endl;
-		}
 	for(int i =0;i<MAX;i++){
 		table[i] = -1;
 	}
@@ -80,7 +64,6 @@ int main(){
 	for(int i=0;i<N;i++){
 		if(get(array[i])==-1){
 			put(i);	
-			//cout <<"put: "<<i<<endl;
 		}else{
 			cout << "Twin snowflakes found."<<endl;
 			return 0;
