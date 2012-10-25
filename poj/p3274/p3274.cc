@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
-int const MAX = 100000;
-int const K = 30;
+int const MAX = 100001;
+int const K = 31;
 int n,k;
 int s[MAX][K];
 struct Node{
@@ -11,10 +11,11 @@ struct Node{
 Node* hashTable[1000000];
 int hashCode(int index){
 	long sum = 0;
-	int base = 1;
 	for(int i=0;i<k;i++){
-		sum += s[index][i]*base;	
-		base <<= 1;
+		sum += s[index][i];	
+	}
+	if(sum<0){
+		sum = -sum;
 	}
 	return sum%1000000;
 }
@@ -73,14 +74,12 @@ int main(){
 	int max = 0;
 	for(int i = 0;i<=n;i++){
 		int hc = hashCode(i);
-		//cout << hc<<endl;
 		Node* cur = hashTable[hc];
 		if(cur == NULL){
 			Node* t = new Node();
 			t->index = i;
 			t->next = NULL;
 			hashTable[hc] = t;
-		//	cout <<"iiii:"<< i << endl;
 		}else{
 			Node* pre = cur;
 			while(cur!=NULL&&!equal(cur->index,i)){
@@ -88,7 +87,6 @@ int main(){
 				cur = cur->next;
 			}
 			if(cur != NULL){//equals
-			//	cout << "equals" <<endl;
 				if(max <i- cur->index ){
 					max =i- cur->index;
 				}
@@ -99,6 +97,7 @@ int main(){
 				pre ->next = t;
 			}
 		}
+		
 	}
 	cout << max<<endl;
 }
