@@ -37,7 +37,10 @@ bool equal(int i,int j){
 }
 int main(){
 	cin>>n>>k;		
-	for(int i=0;i<n;i++){
+	for(int i=0;i<k;i++){
+		s[0][i] = 0;
+	}
+	for(int i=1;i<=n;i++){
 		int t;	
 		cin>>t;
 		int base = 1;
@@ -53,12 +56,12 @@ int main(){
 //	printS();
 
 	for(int i=0;i<k;i++){
-		for(int j=1;j<n;j++){
+		for(int j=1;j<=n;j++){
 			s[j][i] += s[j-1][i];
 		}
 	}	
 //	printS();
-	for(int i=0;i<n;i++){
+	for(int i=0;i<=n;i++){
 		for(int j=k-1;j>=0;j--){
 			s[i][j] -= s[i][0];	
 		}	
@@ -68,7 +71,7 @@ int main(){
 	}
 //	printS();
 	int max = 0;
-	for(int i = 0;i<n;i++){
+	for(int i = 0;i<=n;i++){
 		int hc = hashCode(i);
 		//cout << hc<<endl;
 		Node* cur = hashTable[hc];
