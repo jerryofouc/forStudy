@@ -1,4 +1,5 @@
 #include<iostream>
+#include<stdio.h>
 using namespace std;
 int const MAX = 100001;
 int const K = 31;
@@ -20,7 +21,7 @@ int hashCode(int index){
 			sum += 1000000;
 		}
 	}
-	return sum%1000000;
+	return sum;
 }
 void printS(){
 	for(int i=0;i<n;i++){
@@ -46,7 +47,7 @@ int main(){
 	}
 	for(int i=1;i<=n;i++){
 		int t;	
-		cin>>t;
+		scanf("%d",&t);
 		int base = 1;
 		int j=0;
 		while(base<=t){
@@ -85,9 +86,11 @@ int main(){
 			hashTable[hc] = t;
 		}else{
 			Node* pre = cur;
+			int aa = 0;
 			while(cur!=NULL&&!equal(cur->index,i)){
 				pre = cur;
 				cur = cur->next;
+				aa++;
 			}
 			if(cur != NULL){//equals
 				if(max <i- cur->index ){
