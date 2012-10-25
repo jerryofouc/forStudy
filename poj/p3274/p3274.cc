@@ -11,8 +11,10 @@ struct Node{
 Node* hashTable[1000000];
 int hashCode(int index){
 	long sum = 0;
+	int base = 1;
 	for(int i=0;i<k;i++){
-		sum += s[index][i];	
+		sum += s[index][i]*base;	
+		base<<=1;
 	}
 	if(sum<0){
 		sum = -sum;
