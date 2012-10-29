@@ -1,38 +1,44 @@
 #include<iostream>
 using namespace std;
 const int MAX = 10001;
-int a[501][501];
-int d[501];
-void printD(int N){
-	cout << "D::::"<<endl;
-	for(int i=0;i<N;i++){
-		cout << d[i]<<" ";
-	}
-	cout << endl;
+struct Edge{
+	int v;
+	int t;
+	Edge* next;
+};
+Edge* edges[MAX];
+int d[MAX];
 
+void printD(int N){
+	cout<<"dddd:::"<<endl;
+	for(int i=1;i<=N;i++){
+		cout << d[i]<<"  ";
+	}
+	cout <<endl;
+	cout<<"dddd:::"<<endl;
 }
 bool bellmanFord(int s,int N){
 	for(int i=1;i<=N;i++){
 		d[i] = MAX;
 	}
 	d[s] = 0;
+	//printD(N);
 	for(int i=0;i<N-1;i++){
-		for(int j=1;j<=N;j++){
-			for(int k=1;k<=N;k++){
-				if(j!=k&&a[j][k]<MAX){
-					if(d[k]>a[j][k]+d[j]){
-						d[k] = a[j][k] + d[j];
-					}
+		for(int s=1;s<=N;s++){
+			for(Edge* pe = edges[s]->next;pe!=NULL;pe=pe->next){
+				int e = pe->v;
+				if((d[s]+pe->t) < d[e]){
+					d[e] = (d[s] + pe->t);
 				}
 			}
 		}
 	}
-	for(int j=1;j<=N;j++){
-		for(int k=1;k<=N;k++){
-			if(j!=k&&a[j][k]<MAX){
-				if(d[k]>a[j][k]+d[j]){
-					return false;
-				}
+	//printD(N);
+	for(int s=1;s<=N;s++){
+		for(Edge* pe = edges[s]->next;pe!=NULL;pe=pe->next){
+			int e = pe->v;
+			if((d[s]+pe->t) < d[e]){
+				return false;
 			}
 		}
 	}
@@ -40,21 +46,16 @@ bool bellmanFord(int s,int N){
 }
 void initA(int N){
 	for(int i=1;i<=N;i++){
-		for(int j=1;j<=N;j++){
-			if(i==j){
-				a[i][j] = 0;
-			}else{
-				a[i][j] = MAX;
-			}
-		}
+		edges[i] = new Edge();	
+		edges[i]->v = i;
+		edges[i]->next = NULL;
 	}
 }
 void printA(int N){
-	for(int i=1;i<=N;i++){
-		for(int j=1;j<=N;j++){
-			cout << a[i][j]<<" ";
+	for(int s=1;s<=N;s++){
+		for(Edge* pe = edges[s]->next;pe!=NULL;pe=pe->next){
+			cout << s <<"  "<<(pe->v)<<"  "<<(pe->t)<<endl;
 		}
-		cout << endl;
 	}
 }
 int main(){
@@ -67,17 +68,26 @@ int main(){
 		initA(N);
 		for(int j=0;j<M;j++){
 			cin>>s>>e>>t;	
-			if(t<a[s][e]){
-				a[s][e] = t;
-			}
-			if(t<a[e][s]){
-				a[e][s] = t;
-			}
+			Edge* ed = new Edge();
+			ed->v = e;
+			ed->next = edges[s]->next;
+			ed->t =t;
+			edges[s]->next = ed;
+			ed = new Edge();
+			ed->v = s;
+			ed->next = edges[e]->next;
+			ed->t =t;
+			edges[e]->next = ed;
 		}
 		for(int j=0;j<W;j++){
 			cin>>s>>e>>t;
-			a[s][e] = -t;
+			Edge* ed = new Edge();
+			ed->v = e;
+			ed->next = edges[s]->next;
+			ed->t =-t;
+			edges[s]->next = ed;
 		}
+		//printA(N);
 		bool isYes = false;
 		for(int j=1;j<=N;j++){
 			if(!bellmanFord(j,N)){
