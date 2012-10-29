@@ -78,32 +78,22 @@ int main(){
 	int max = 0;
 	for(int i = 0;i<=n;i++){
 		int hc = hashCode(i);
+		bool isFound = false;
 		Node* cur = hashTable[hc];
-		if(cur == NULL){
-			Node* t = new Node();
-			t->index = i;
-			t->next = NULL;
-			hashTable[hc] = t;
-		}else{
-			Node* pre = cur;
-			int aa = 0;
-			while(cur!=NULL&&!equal(cur->index,i)){
-				pre = cur;
-				cur = cur->next;
-				aa++;
-			}
-			if(cur != NULL){//equals
+		for(;cur!=NULL;cur=cur->next){
+			if(equal(cur->index,i)){
 				if(max <i- cur->index ){
 					max =i- cur->index;
 				}
-			}else{
-				Node* t = new Node();
-				t->index = i;
-				t->next = NULL;
-				pre ->next = t;
-			}
+				isFound = true;
+			}		
 		}
-		
+		if(!isFound){
+			Node* t = new Node();
+			t->index = i;
+			t->next = hashTable[hc];
+			hashTable[hc] = t;
+		}
 	}
 	cout << max<<endl;
 }
