@@ -45,6 +45,16 @@ bool bellmanFord(int s,int N){
 	return true;
 }
 void initA(int N){
+	edges[0] = new Edge();
+	edges[0]->v = 0;
+	edges[0]->next = NULL;
+	for(int i=1;i<=N;i++){
+		Edge* e = new Edge();
+		e->v = i;
+		e->t = 1;
+		e->next = edges[0]->next;
+		edges[0]->next = e;
+	}
 	for(int i=1;i<=N;i++){
 		edges[i] = new Edge();	
 		edges[i]->v = i;
@@ -88,15 +98,9 @@ int main(){
 			edges[s]->next = ed;
 		}
 		//printA(N);
-		bool isYes = false;
-		for(int j=1;j<=N;j++){
-			if(!bellmanFord(j,N)){
-				cout<<"YES"<<endl;;
-				isYes = true;
-				break;
-			}
-		}
-		if(!isYes){
+		if(!bellmanFord(0,N)){
+				cout<<"YES"<<endl;
+		}else{
 			cout <<"NO"<< endl;
 		}
 	}
