@@ -1,3 +1,8 @@
+/***
+*this method has too much complexity
+*
+**/
+
 #include<iostream>
 #include<iomanip>
 #include<cmath>
@@ -19,7 +24,7 @@ Edge findMin(int n){
 	int minX,minY;
 	double min = -1;
 	for(int i=0;i<n;i++){
-		for(int j=i;j<n;j++){
+		for(int j=i+1;j<n;j++){
 			if((min==-1&&!visited[i][j])||
 				(min!=-1&&!visited[i][j]&&matrix[i][j]<min)){
 				min = matrix[i][j];
