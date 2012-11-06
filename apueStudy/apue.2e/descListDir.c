@@ -18,7 +18,11 @@ int main(int argc,char* argv[]){
 	}
 	
 	printf("regular files %7ld, %5.2f %%\n",nreg,nreg*100/ntot);
-	printf("regular files %7ld, %5.2f %%\n",nreg,nreg*100/ntot);
-
-
+	printf("directories files %7ld, %5.2f %%\n",ndir,ndir*100/ntot);
+	printf("block files %7ld, %5.2f %%\n",nblk,nblk*100/ntot);
+	printf("char special files %7ld, %5.2f %%\n",nchr,nchr*100/ntot);
+	printf("FIFOs	 %7ld, %5.2f %%\n",nfifo,nfifo*100/ntot);
+	printf("symbolic links %7ld, %5.2f %%\n",nslink,nslink*100/ntot);
+	printf("sockets %7ld, %5.2f %%\n",nsock,nsock*100/ntot);
+	exit(ret)
 }
