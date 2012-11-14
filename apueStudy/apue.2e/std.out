@@ -1,0 +1,9 @@
+enter any character
+stream = stdio full buffered
+, buffer size = 4096
+stream = stdout full buffered
+, buffer size = 4096
+stream = stderror unbuffered
+, buffer size = 0
+stream = /etc/motd full buffered
+, buffer size = 4096
