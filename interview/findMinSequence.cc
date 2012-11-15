@@ -1,3 +1,13 @@
+/**
+**
+*从一个长字符串中查找包含给定字符集合的最短子串。
+*例如，长串为“aaaaaaaaaacbebbbbbdddddddcccccc”，字符集为{abcd}，
+*那么最短子串是“acbebbbbbd”。
+*如果将条件改为“包含且只包含给定字符集合”，
+*你的算法和实现又将如何改动。
+*思想是滑动窗口
+*/
+
 #include<iostream>
 using namespace std;
 int hash[256];
