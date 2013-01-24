@@ -1,0 +1,18 @@
+#include<iostream>
+#include<stdlib.h>
+#include<time.h>
+using namespace std;
+int halfProb(){
+	int halfMax = RAND_MAX>>2;
+	if(rand()<halfMax){
+		return 0;
+	}else{
+		return 1;
+	}
+}
+int main(){
+	srand(time(NULL));
+	for(int i=0;i<20;i++){
+		cout << halfProb()<<endl;
+	}
+}
