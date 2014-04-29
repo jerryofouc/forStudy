@@ -1,0 +1,2 @@
+before vfork
+pid = 7903, glob = 7, var = 89
